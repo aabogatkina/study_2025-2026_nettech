@@ -1,0 +1,202 @@
+---
+# Preamble
+
+## Author
+author:
+  name: Богаткина Алёна Александровна
+  degrees: DSc
+  email: 1132231437@pfur.ru
+  affiliation:
+    - name: Российский университет дружбы народов
+      country: Российская Федерация
+      postal-code: 117198
+      city: Москва
+      address: ул. Миклухо-Маклая, д. 6
+
+## Title
+title: Презентация по лабораторной работе №3
+subtitle: Сетевые технологии
+license: CC BY
+date: 2025-09-10
+
+## Generic options
+lang: ru-RU
+crossref:
+  lof-title: Список иллюстраций
+  lot-title: Список таблиц
+  lol-title: Листинги
+
+## Fonts 
+mainfont: DejaVu Sans
+romanfont: DejaVu Sans 
+sansfont: DejaVu Sans 
+monofont: DejaVu Sans Mono 
+mainfontoptions: Ligatures=TeX 
+romanfontoptions: Ligatures=TeX 
+sansfontoptions: Ligatures=TeX,Scale=MatchLowercase 
+monofontoptions: Scale=MatchLowercase,Scale=0.9
+
+## Formats
+format:
+### Pdf output format
+  beamer:
+    toc: true
+    toc-title: Содержание
+    number-sections: true
+    colorlinks: false
+    toc-depth: 2
+    slide_level: 2
+    aspectratio: 169
+    section-titles: true
+    theme: metropolis
+    themeoptions: progressbar=frametitle,sectionpage=progressbar,numbering=fraction
+    pdf-engine: xelatex
+    fontenc: T2A
+#### Language
+    babel-lang: russian
+    babel-otherlangs: english
+
+### Html output
+  revealjs:
+    transition: slide
+    margin: 0.2
+    smaller: false
+    output-ext: html
+    theme: beige
+    logo: _resources/image/logo_rudn.png
+---
+
+# Вводная часть
+
+## Цель работы
+
+Целью данной работы является изучение посредством Wireshark кадров Ethernet, анализ PDU протоколов
+транспортного и прикладного уровней стека TCP/IP.
+
+# Выполнение лабораторной работы
+
+## MAC-адресация
+
+С помощью команды ipconfig вывели информацию о текущем сетевом соединении ([рис. @fig-001]):
+
+## MAC-адресация
+
+![Вывод команды ipconfig](image/1.png){#fig-001 width=30%}
+
+## MAC-адресация
+
+MAC-адреса сетевых интерфейсов на нашем компьютере ([рис. @fig-002]):
+
+![Определение MAC-адреса сетевых интерфейсов на нашем устройстве](image/2.png){#fig-002 width=70%}
+
+## Анализ кадров канального уровня в Wireshark
+
+Запустили wireshark. Выбрали активный на нашем устройстве сетевой интерфейс и убедились что начался процесс захвата трафика ([рис. @fig-003])
+
+![Интерфейс wireshark](image/3.png){#fig-003 width=70%}
+
+## Анализ кадров канального уровня в Wireshark
+ 
+На устройстве в консоле определили IP-адрес нашего устройства и шлюз по умолчанию (default gateway) ([рис. @fig-004])
+
+![Определение IP-адреса шлюза](image/4.png){#fig-004 width=70%}
+
+## Анализ кадров канального уровня в Wireshark
+
+На устройстве в консоли с помошью команды ```ping 192.168.1.254``` пропинговали шлюз по умолчанию ([рис. @fig-005])
+
+![Пингование шлюза](image/5.png){#fig-005 width=70%} 
+
+## Анализ кадров канального уровня в Wireshark
+
+В wireshark остановили захват трафика. И в строке фльтра прописали фильтр ```arp or icmp``` ([рис. @fig-006])
+
+![Фильтр arp or icmp](image/6.png){#fig-006 width=70%} 
+
+## Анализ кадров канального уровня в Wireshark
+
+Изучили эхо-запрос и эхо-ответ ICMP в программе Wireshark ([рис. @fig-007]), ([рис. @fig-008]):
+	
+![Информация об эхо-запросе](image/7.png){#fig-007 width=70%} 
+
+## Анализ кадров канального уровня в Wireshark
+
+![Информация об эхо-ответе](image/8.png){#fig-008 width=70%} 
+
+## Анализ кадров канального уровня в Wireshark
+
+Изучили кадры данных протокоа ARP. Изучили данные в полях заголовка Ethernet II ([рис. @fig-009]):
+
+![Информация кадра протокола ARP](image/9.png){#fig-009 width=70%} 
+
+## Анализ кадров канального уровня в Wireshark
+
+Начали новый процесс захвата трафика в wireshark. На устройстве в консоле пропинговали известный адрес, ```ping vk.com``` ([рис. @fig-010])
+
+![Пингование vk.com](image/11.png){#fig-010 width=70%} 
+
+## Анализ кадров канального уровня в Wireshark
+
+В Wireshark остановили захваттрафика. Изучили запросы и ответы протоколов ARP и ICMP. Определили MAC-адреса источника и получателя, определили тип MAC-адресов ([рис. @fig-011])
+
+![Изучение трафика между устройством и vk.com](image/12.png){#fig-011 width=70%} 
+
+## Анализ кадров канального уровня в Wireshark
+
+Данные эхо-запроса ([рис. @fig-012]): длина кадра - 74 байт , тип Ethernet - IPv4, MAC-адрес источника - d4:54:8b:a2:be:5d, MAC-адрес получателя - e4:26:86:48:37:08
+
+![Эхо-запрос от vk.com](image/13.png){#fig-012 width=70%} 
+
+## Анализ кадров канального уровня в Wireshark
+
+Данные эхо-ответа ([рис. @fig-013]): длина кадра - 78 байт, тип Ethernet - IPv4, MAC-адрес источника - e4:26:86:48:37:08, MAC-адрес получателя - d4:54:8b:a2:be:5d
+
+![Эхо-ответ от vk.com](image/14.png){#fig-013 width=70%} 
+
+## Анализ протоколов транспортного уровня в Wireshark
+
+На нашем устройстве в браузере перешли на сайт, работающий по протоколу HTTP (например, на сайт CERN http://info.cern.ch/) ([рис. @fig-014])
+
+![Сайт CERN](image/15.2.png){#fig-014 width=70%} 
+
+## Анализ протоколов транспортного уровня в Wireshark
+
+В Wireshark в строке фильтра указали ```http``` и проанализировалм информацию по протоколу TCP в случае запросов и ответов ([рис. @fig-015]). Кадры по протоколу HTTP уже больше (740, 572, 324 и т.д. Кб). В поле MAC-адрес получателя также определён MAC-адрес шлюза
+
+## Анализ протоколов транспортного уровня в Wireshark
+
+![Фильтрование трафика по протоколу HTTP](image/16.png){#fig-015 width=60%}
+
+## Анализ протоколов транспортного уровня в Wireshark
+
+В Wireshark в строке фильтра указали ```dns``` и проанализировалм информацию по протоколу UDP в случае запросов и ответов ([рис. @fig-016]). Кадры меньше чем в HTTP (96 и т.д. Кб). Информация об отправителе и получателе такая же
+
+![Фильтрование трафика по протоколу UDP](image/17.png){#fig-016 width=40%}
+
+## Анализ протоколов транспортного уровня в Wireshark
+
+В Wireshark в строке фильтра указали ```quic``` и проанализировалм информацию по протоколу quic в случае запросов и ответов ([рис. @fig-017]). В пакете QUIC задан большой размер кадров
+
+![Фильтрование трафика по протоколу QUIC](image/18.png){#fig-017 width=50%}
+
+## Анализ handshake протокола TCP в Wireshark
+
+В Wireshark проанализировали handshake протокола TCP ([рис. @fig-018]). Для установления соединенися по TCP используется процесс 3-way handshake (трёхстороннее рукопожатие). Происходит обмен тремя пакетами
+
+![handshake протокола TCP](image/19.png){#fig-018 width=40%}
+
+## Анализ handshake протокола TCP в Wireshark
+
+В Wireshark в меню «Статистика» выбрали «График Потока» и посмотрели для TCP ([рис. @fig-019])
+
+![График потока TCP пакетов](image/20.png){#fig-019 width=40%}
+
+# Подведение итогов
+
+## Выводы
+
+В ходе выполнения лабораторной работы №3 мы изучили посредством Wireshark кадры Ethernet, проанализировали PDU протоколы транспортного и прикладного уровней стека TCP/IP
+
+## Список литературы
+
+1. [Лаборатораня работа №3](https://esystem.rudn.ru/pluginfile.php/2858360/mod_resource/content/3/003-lab_datalink-layer-WSh.pdf)
